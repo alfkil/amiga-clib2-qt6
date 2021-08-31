@@ -54,7 +54,7 @@
 #include "private/qabstractfileengine_p.h"
 #include "private/qtemporaryfile_p.h"
 
-#if !defined(Q_OS_INTEGRITY)
+#if !defined(Q_OS_INTEGRITY) && !defined(__amigaos4__)
 #include <sys/file.h>  // flock
 #endif
 

@@ -41,15 +41,16 @@
 #ifndef QGLOBAL_H
 #define QGLOBAL_H
 
-#if defined(__amigaos4__) && defined(__cplusplus)
+#if 0 //defined(__amigaos4__) && defined(__cplusplus)
 namespace std {
-    inline long int lround (double arg) {
-        long double a = arg - (long int)arg;
-        if(arg > 0) {
-            return (long int)arg + (a >= 0.5 ? 1.0 : 0.0);
-        } else {
-            return (long int)arg - (a <= -0.5 ? 1.0 : 0.0);
-        }
+    inline long int std::lround (double arg) {
+        return ::lround (arg);
+        // long double a = arg - (long int)arg;
+        // if(arg > 0) {
+        //     return (long int)arg + (a >= 0.5 ? 1.0 : 0.0);
+        // } else {
+        //     return (long int)arg - (a <= -0.5 ? 1.0 : 0.0);
+        // }
     }
     inline float copysign(float mag, float sgn) {
         float m = mag < 0.0 ? - mag : mag;

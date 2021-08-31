@@ -57,6 +57,11 @@
 #pragma warning( disable : 4127 ) // conditional expression is constant
 #endif
 
+#if defined(__amigaos4__)
+#define	UINT32_C(x)		x ## U
+#define	UINT64_C(x)		x ## ULL
+#endif
+
 QT_BEGIN_NAMESPACE
 
 class QBitArray;

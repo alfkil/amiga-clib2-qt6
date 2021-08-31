@@ -51,7 +51,9 @@
 #  include <QThread>
 #endif
 
+#ifndef __amigaos4__
 #include <sys/times.h>
+#endif
 
 QT_BEGIN_NAMESPACE
 
@@ -64,6 +66,7 @@ Q_CORE_EXPORT bool qt_disable_lowpriority_timers=false;
 
 QTimerInfoList::QTimerInfoList()
 {
+#if !defined(__amigaos4__)
 #if (_POSIX_MONOTONIC_CLOCK-0 <= 0) && !defined(Q_OS_MAC)
     if (!QElapsedTimer::isMonotonic()) {
         // not using monotonic timers, initialize the timeChanged() machinery
@@ -72,11 +75,7 @@ QTimerInfoList::QTimerInfoList()
         tms unused;
         previousTicks = times(&unused);
 
-#ifdef __amigaos4__
-        ticksPerSecond = 100;
-#else
         ticksPerSecond = sysconf(_SC_CLK_TCK);
-#endif
         msPerTick = 1000/ticksPerSecond;
     } else {
         // detected monotonic timers
@@ -86,7 +85,7 @@ QTimerInfoList::QTimerInfoList()
         msPerTick = 0;
     }
 #endif
-
+#endif
     firstTimerInfo = nullptr;
 }
 
@@ -95,6 +94,7 @@ timespec QTimerInfoList::updateCurrentTime()
     return (currentTime = qt_gettime());
 }
 
+#if !defined(__amigaos4__)
 #if ((_POSIX_MONOTONIC_CLOCK-0 <= 0) && !defined(Q_OS_MAC) && !defined(Q_OS_INTEGRITY)) || defined(QT_BOOTSTRAPPED)
 
 timespec qAbsTimespec(const timespec &t)
@@ -173,7 +173,7 @@ void QTimerInfoList::repairTimersIfNeeded()
 }
 
 #endif
-
+#endif
 /*
   insert timer info into list
 */

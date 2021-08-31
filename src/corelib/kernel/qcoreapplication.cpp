@@ -106,7 +106,7 @@
 
 #ifdef Q_OS_UNIX
 #  include <locale.h>
-#  ifndef Q_OS_INTEGRITY
+#  if !defined(Q_OS_INTEGRITY) && !defined(__amigaos4__)
 #    include <langinfo.h>
 #  endif
 #  include <unistd.h>
@@ -594,7 +594,7 @@ void QCoreApplicationPrivate::initLocale()
         return;
     qt_locale_initialized = true;
 
-#ifdef Q_OS_INTEGRITY
+#if defined(Q_OS_INTEGRITY) || defined(__amigaos4__)
     setlocale(LC_CTYPE, "UTF-8");
 #else
     // Android's Bionic didn't get nl_langinfo until NDK 15 (Android 8.0),

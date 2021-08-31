@@ -69,7 +69,7 @@
 #  include <sys/time.h>
 #endif
 
-#if (_POSIX_MONOTONIC_CLOCK-0 <= 0) || defined(QT_BOOTSTRAPPED)
+#if ((_POSIX_MONOTONIC_CLOCK-0 <= 0) || defined(QT_BOOTSTRAPPED)) && !defined(__amigaos4__)
 #  include <sys/times.h>
 #endif
 

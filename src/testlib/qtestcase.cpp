@@ -1793,7 +1793,7 @@ private:
     }
 #endif // defined(Q_OS_WIN)
 
-#if defined(Q_OS_UNIX) && !defined(Q_OS_WASM)
+#if defined(Q_OS_UNIX) && !defined(Q_OS_WASM) && !defined(__amigaos4__)
     static void signal(int signum)
     {
         const int msecsFunctionTime = qRound(QTestLog::msecsFunctionTime());

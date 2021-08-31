@@ -80,6 +80,7 @@ void qt_initialize_pthread_cond(pthread_cond_t *cond, const char *where)
     pthread_condattr_t condattr;
 
     pthread_condattr_init(&condattr);
+#ifndef __amigaos4__
 #if (_POSIX_MONOTONIC_CLOCK-0 >= 0)
 #if defined(Q_OS_ANDROID)
     if (local_condattr_setclock && QElapsedTimer::clockType() == QElapsedTimer::MonotonicClock)
@@ -87,6 +88,7 @@ void qt_initialize_pthread_cond(pthread_cond_t *cond, const char *where)
 #elif !defined(Q_OS_MAC)
     if (QElapsedTimer::clockType() == QElapsedTimer::MonotonicClock)
         pthread_condattr_setclock(&condattr, CLOCK_MONOTONIC);
+#endif
 #endif
 #endif
     report_error(pthread_cond_init(cond, &condattr), where, "cv init");

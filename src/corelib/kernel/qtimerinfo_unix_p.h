@@ -79,6 +79,7 @@ struct QTimerInfo {
 
 class Q_CORE_EXPORT QTimerInfoList : public QList<QTimerInfo*>
 {
+#ifndef __amigaos4__
 #if ((_POSIX_MONOTONIC_CLOCK-0 <= 0) && !defined(Q_OS_MAC)) || defined(QT_BOOTSTRAPPED)
     timespec previousTime;
     clock_t previousTicks;
@@ -88,7 +89,7 @@ class Q_CORE_EXPORT QTimerInfoList : public QList<QTimerInfo*>
     bool timeChanged(timespec *delta);
     void timerRepair(const timespec &);
 #endif
-
+#endif
     // state variables used by activateTimers()
     QTimerInfo *firstTimerInfo;
 

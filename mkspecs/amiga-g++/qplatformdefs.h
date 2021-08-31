@@ -60,4 +60,6 @@ void *qReallocAligned(void *oldptr, size_t newsize, size_t oldsize, size_t align
 #include <sys/time.h>
 #include <grp.h>
 
+#define __STDC_CONSTANT_MACROS
+
 #endif // QPLATFORMDEFS_H
